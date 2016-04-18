@@ -108,6 +108,7 @@
                     Common.Constants.ImageMiddleMaxSize))
             {
                 img.Save(middlePath + newFilename, ImageFormat.Jpeg);
+                img.Dispose();
             }
 
             using (
@@ -117,7 +118,10 @@
                     Common.Constants.ImageLowMaxSize))
             {
                 img.Save(lowPath + newFilename, ImageFormat.Jpeg);
+                img.Dispose();
             }
+
+            GC.Collect();
 
             var newDbImage = new Data.Models.Image()
                                  {
