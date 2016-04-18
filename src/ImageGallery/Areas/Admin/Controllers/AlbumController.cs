@@ -49,7 +49,7 @@ namespace ImageGallery.Areas.Admin.Controllers
 
         public ActionResult Details(string id)
         {
-            this.Session["ProjectId"] = id;
+            this.Session["AlbumId"] = id;
             var intId = int.Parse(id);
             var result =
                 this.albumService.GetAll().Where(x => x.Id == intId).To<AlbumDetailsViewModel>().FirstOrDefault();
