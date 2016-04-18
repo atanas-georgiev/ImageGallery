@@ -1,12 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@using Kendo.Mvc.UI
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryajax")
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/kendo")
+    @Styles.Render("~/Content/kendo/kendo.bootstrap.min.css")
 
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/kendo")
+    
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -29,16 +36,40 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+<div class="container body-content">
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+</div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @(Html.Kendo().Menu().Name("Menu").Animation(animation =>
+          {
+              animation.Open(open =>
+                  {
+                      if (ViewBag.animation == "expand")
+                      {
+                          open.Expand(ExpandDirection.Vertical);
+                      }
+
+                      if (ViewBag.animation == "slide")
+                      {
+                          open.SlideIn(SlideDirection.Down);
+                      }
+
+                      if (true)
+                      {
+                          open.Fade(FadeDirection.In);
+                      }
+                  });
+          }).HoverDelay(100).Items(items =>
+              {
+                  // Home page, public
+                  items.Add().Text("<span class=\"glyphicon glyphicon-home\"></span> ").Encoded(false).Action("Index", "Home", new { area = string.Empty });
+              }))
+
+
+@RenderSection("scripts", required: false)
 </body>
 </html>
