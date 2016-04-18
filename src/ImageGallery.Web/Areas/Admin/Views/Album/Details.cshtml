@@ -39,8 +39,8 @@
             @(Html.Kendo().Upload()
                 .Name("files")
                 .Async(a => a
-                    .Save("SaveImage", "Json")
-                    .Remove("RemoveImage", "Json")
+                    .Save("Save", "Upload")
+                    .Remove("Remove", "Upload")
                     .AutoUpload(true)
                 )
             )

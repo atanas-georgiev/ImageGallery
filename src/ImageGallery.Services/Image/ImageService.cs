@@ -81,9 +81,16 @@ namespace ImageGallery.Services.Image
             var middlePath = server.MapPath(Common.Constants.MainContentFolder + "\\" + albumId + "\\" + Common.Constants.ImageFolderMiddle + "\\");
             var lowPath = server.MapPath(Common.Constants.MainContentFolder + "\\" + albumId + "\\" + Common.Constants.ImageFolderLow + "\\");
             file.SaveAs(originalPath + newFilename);
-            
-            this.ScaleImage(new Bitmap(originalPath + newFilename), Common.Constants.ImageMiddleMaxSize, Common.Constants.ImageMiddleMaxSize).Save(middlePath + newFilename, ImageFormat.Jpeg);
-            this.ScaleImage(new Bitmap(originalPath + newFilename), Common.Constants.ImageLowMaxSize, Common.Constants.ImageLowMaxSize).Save(lowPath + newFilename, ImageFormat.Jpeg);
+
+            using (var img = this.ScaleImage(new Bitmap(originalPath + newFilename), Common.Constants.ImageMiddleMaxSize,Common.Constants.ImageMiddleMaxSize))
+            {
+                img.Save(middlePath + newFilename, ImageFormat.Jpeg);
+            }
+
+            using (var img = this.ScaleImage(new Bitmap(originalPath + newFilename), Common.Constants.ImageLowMaxSize, Common.Constants.ImageLowMaxSize))
+            {
+                img.Save(lowPath + newFilename, ImageFormat.Jpeg);
+            }            
 
             var newDbImage = new Data.Models.Image()
             {

@@ -194,6 +194,7 @@
     <Compile Include="Areas\Admin\Controllers\AlbumController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\JsonController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UploadController.cs" />
     <Compile Include="Areas\Admin\Models\Album\AddAlbumViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Album\AlbumDetailsViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Album\AlbumListViewModel.cs" />
@@ -744,6 +745,7 @@
     <Folder Include="Areas\Admin\Views\Base\" />
     <Folder Include="Areas\Admin\Views\JSon\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Admin\Views\Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
