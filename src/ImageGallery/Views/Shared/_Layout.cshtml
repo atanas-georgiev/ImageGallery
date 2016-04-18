@@ -44,7 +44,18 @@
     </footer>
 </div>
 
-    @(Html.Kendo().Menu().Name("Menu").Animation(animation =>
+    <div class="demo-section k-content">
+        @(Html.Kendo().Upload()
+        .Name("files")
+        .Async(a => a
+            .Save("Save", "Upload")
+            .Remove("Remove", "Upload")
+            .AutoUpload(true)
+        )
+        )
+    </div>
+
+@(Html.Kendo().Menu().Name("Menu").Animation(animation =>
           {
               animation.Open(open =>
                   {
