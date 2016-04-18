@@ -6,7 +6,7 @@ using ImageGallery.Data.Common.Models;
 namespace ImageGallery.Data.Models
 {
     public class Album : BaseModel<int>, IHavePrimaryKey<int>
-    {
+    {        
         [Required]
         [MinLength(3)]
         [MaxLength(150)]

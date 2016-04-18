@@ -11,7 +11,7 @@
     <h3 class="well-title">Albums</h3>
     <hr />
     <div>
-        @Html.ActionLink("Add", "Create", "", new { @class = "k-button" })
+        @Html.ActionLink("Add", "Add", "", new { @class = "k-button" })
     </div>
     <br />
     @(Html.Kendo().Grid<AlbumListViewModel>().Name("grid").Columns(columns =>
