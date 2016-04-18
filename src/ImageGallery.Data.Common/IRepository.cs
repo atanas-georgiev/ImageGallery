@@ -1,8 +1,9 @@
-﻿using System.Linq;
-using ImageGallery.Data.Common.Models;
-
-namespace ImageGallery.Data.Common
+﻿namespace ImageGallery.Data.Common
 {
+    using System.Linq;
+
+    using ImageGallery.Data.Common.Models;
+
     public interface IRepository<T> : IRepository<T, string>
         where T : class, IHavePrimaryKey<string>, IDeletableEntity, IAuditInfo
     {

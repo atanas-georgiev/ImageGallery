@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-
-namespace ImageGallery.Web.Infrastructure.Mappings
+﻿namespace ImageGallery.Web.Infrastructure.Mappings
 {
+    using AutoMapper;
+
     public interface IHaveCustomMappings
     {
         void CreateMappings(IConfiguration configuration);

@@ -1,24 +1,23 @@
-﻿using System.Web.Mvc;
-
-namespace ImageGallery.Web.Areas.Admin
+﻿namespace ImageGallery.Web.Areas.Admin
 {
-    public class AdminAreaRegistration : AreaRegistration 
+    using System.Web.Mvc;
+
+    public class AdminAreaRegistration : AreaRegistration
     {
-        public override string AreaName 
+        public override string AreaName
         {
-            get 
+            get
             {
                 return "Admin";
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "Admin_default_route",
-                "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
-            );
+                "Admin_default_route", 
+                "Admin/{controller}/{action}/{id}", 
+                new { action = "Index", id = UrlParameter.Optional });
         }
     }
 }

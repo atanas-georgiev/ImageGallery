@@ -1,11 +1,12 @@
-﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using ImageGallery.Data.Common.Models;
-
-namespace ImageGallery.Data.Common
+﻿namespace ImageGallery.Data.Common
 {
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    using System.Linq;
+
+    using ImageGallery.Data.Common.Models;
+
     // TODO: Why BaseModel<int> instead BaseModel<TKey>?
     public class Repository<T, TKey> : IRepository<T, TKey>
         where T : BaseModel<TKey>, IHavePrimaryKey<TKey> where TKey : struct
@@ -15,7 +16,7 @@ namespace ImageGallery.Data.Common
             if (context == null)
             {
                 throw new ArgumentException(
-                    "An instance of DbContext is required to use this repository.",
+                    "An instance of DbContext is required to use this repository.", 
                     nameof(context));
             }
 

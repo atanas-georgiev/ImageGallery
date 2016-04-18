@@ -1,16 +1,18 @@
-﻿using System;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using ImageGallery.Data;
-using ImageGallery.Data.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
-
-namespace ImageGallery.Web
+﻿namespace ImageGallery.Web
 {
+    using System;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
+    using ImageGallery.Data;
+    using ImageGallery.Data.Models;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
+    using Microsoft.Owin.Security;
+
     public class EmailService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)
@@ -37,25 +39,28 @@ namespace ImageGallery.Web
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(
+            IdentityFactoryOptions<ApplicationUserManager> options, 
+            IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<User>(context.Get<ImageGalleryDbContext>()));
+
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<User>(manager)
-            {
-                AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
-            };
+                                        {
+                                            AllowOnlyAlphanumericUserNames = false, 
+                                            RequireUniqueEmail = true
+                                        };
 
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
-            {
-                RequiredLength = 3,
-                RequireNonLetterOrDigit = false,
-                RequireDigit = false,
-                RequireLowercase = false,
-                RequireUppercase = false,
-            };
+                                            {
+                                                RequiredLength = 3, 
+                                                RequireNonLetterOrDigit = false, 
+                                                RequireDigit = false, 
+                                                RequireLowercase = false, 
+                                                RequireUppercase = false, 
+                                            };
 
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
@@ -64,23 +69,21 @@ namespace ImageGallery.Web
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
-            manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<User>
-            {
-                MessageFormat = "Your security code is {0}"
-            });
-            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<User>
-            {
-                Subject = "Security Code",
-                BodyFormat = "Your security code is {0}"
-            });
+            manager.RegisterTwoFactorProvider(
+                "Phone Code", 
+                new PhoneNumberTokenProvider<User> { MessageFormat = "Your security code is {0}" });
+            manager.RegisterTwoFactorProvider(
+                "Email Code", 
+                new EmailTokenProvider<User> { Subject = "Security Code", BodyFormat = "Your security code is {0}" });
             manager.EmailService = new EmailService();
             manager.SmsService = new SmsService();
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<User>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
+
             return manager;
         }
     }
@@ -88,19 +91,25 @@ namespace ImageGallery.Web
     // Configure the application sign-in manager which is used in this application.
     public class ApplicationSignInManager : SignInManager<User, string>
     {
-        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
+        public ApplicationSignInManager(
+            ApplicationUserManager userManager, 
+            IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)
         {
         }
 
-        public override Task<ClaimsIdentity> CreateUserIdentityAsync(User user)
+        public static ApplicationSignInManager Create(
+            IdentityFactoryOptions<ApplicationSignInManager> options, 
+            IOwinContext context)
         {
-            return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
+            return new ApplicationSignInManager(
+                context.GetUserManager<ApplicationUserManager>(), 
+                context.Authentication);
         }
 
-        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
+        public override Task<ClaimsIdentity> CreateUserIdentityAsync(User user)
         {
-            return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+            return user.GenerateUserIdentityAsync((ApplicationUserManager)this.UserManager);
         }
     }
 }

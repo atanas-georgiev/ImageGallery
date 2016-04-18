@@ -1,12 +1,21 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using AutoMapper;
-using ImageGallery.Web.Infrastructure.Mappings;
-
-namespace ImageGallery.Web.Areas.Admin.Models.Album
+﻿namespace ImageGallery.Web.Areas.Admin.Models.Album
 {
-    public class AlbumListViewModel : IMapFrom<Data.Models.Album>, IHaveCustomMappings
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
+    using AutoMapper;
+
+    using ImageGallery.Data.Models;
+    using ImageGallery.Web.Infrastructure.Mappings;
+
+    public class AlbumListViewModel : IMapFrom<Album>, IHaveCustomMappings
     {
+        [Required]
+        public DateTime Date { get; set; }
+
+        [MaxLength(3000)]
+        public string Description { get; set; }
+
         [Key]
         public int Id { get; set; }
 
@@ -15,15 +24,8 @@ namespace ImageGallery.Web.Areas.Admin.Models.Album
         [MaxLength(150)]
         public string Title { get; set; }
 
-        [MaxLength(3000)]
-        public string Description { get; set; }
-
-        [Required]
-        public DateTime Date { get; set; }
-
         public void CreateMappings(IConfiguration configuration)
         {
-            
         }
     }
 }

@@ -1,26 +1,26 @@
-﻿using System.Web.Mvc;
-
-namespace ImageGallery.Web.Controllers
+﻿namespace ImageGallery.Web.Controllers
 {
+    using System.Web.Mvc;
+
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            this.ViewBag.Message = "Your application description page.";
 
-            return View();
+            return this.View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            this.ViewBag.Message = "Your contact page.";
 
-            return View();
+            return this.View();
+        }
+
+        public ActionResult Index()
+        {
+            return this.View();
         }
     }
 }

@@ -1,12 +1,14 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
-using ImageGallery.Data.Common.Models;
-using ImageGallery.Data.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
-
-namespace ImageGallery.Data
+﻿namespace ImageGallery.Data
 {
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+
+    using ImageGallery.Data.Common.Models;
+    using ImageGallery.Data.Models;
+
+    using Microsoft.AspNet.Identity.EntityFramework;
+
     public class ImageGalleryDbContext : IdentityDbContext<User>
     {
         public ImageGalleryDbContext()
@@ -34,7 +36,8 @@ namespace ImageGallery.Data
                 this.ChangeTracker.Entries()
                     .Where(
                         e =>
-                        e.Entity is IAuditInfo && ((e.State == EntityState.Added) || (e.State == EntityState.Modified))))
+                        e.Entity is IAuditInfo && ((e.State == EntityState.Added) || (e.State == EntityState.Modified)))
+                )
             {
                 var entity = (IAuditInfo)entry.Entity;
                 if (entry.State == EntityState.Added && entity.CreatedOn == default(DateTime))

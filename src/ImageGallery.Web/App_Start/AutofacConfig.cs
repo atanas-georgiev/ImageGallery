@@ -1,14 +1,16 @@
-﻿using System.Data.Entity;
-using System.Reflection;
-using System.Web.Mvc;
-using Autofac;
-using Autofac.Integration.Mvc;
-using ImageGallery.Data;
-using ImageGallery.Data.Common;
-using ImageGallery.Services.Album;
-
-namespace ImageGallery.Web
+﻿namespace ImageGallery.Web
 {
+    using System.Data.Entity;
+    using System.Reflection;
+    using System.Web.Mvc;
+
+    using Autofac;
+    using Autofac.Integration.Mvc;
+
+    using ImageGallery.Data;
+    using ImageGallery.Data.Common;
+    using ImageGallery.Services.Album;
+
     public static class AutofacConfig
     {
         public static void RegisterAutofac()
@@ -50,11 +52,10 @@ namespace ImageGallery.Web
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerRequest();
             builder.RegisterGeneric(typeof(Repository<,>)).As(typeof(IRepository<,>)).InstancePerRequest();
 
-//            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-//                .AssignableTo<BaseController>()
-//                .PropertiesAutowired()
-//                .InstancePerRequest();
-            
+            // builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+            // .AssignableTo<BaseController>()
+            // .PropertiesAutowired()
+            // .InstancePerRequest();
         }
     }
 }

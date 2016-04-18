@@ -1,13 +1,15 @@
-﻿using System.Linq;
-
-namespace ImageGallery.Services.Album
+﻿namespace ImageGallery.Services.Album
 {
+    using System.Linq;
+
+    using ImageGallery.Data.Models;
+
     public interface IAlbumService
     {
-        IQueryable<Data.Models.Album> GetAll();
+        void Add(Album album);
 
-        Data.Models.Album GetById(int id);
+        IQueryable<Album> GetAll();
 
-        void Add(Data.Models.Album album);
+        Album GetById(int id);
     }
 }

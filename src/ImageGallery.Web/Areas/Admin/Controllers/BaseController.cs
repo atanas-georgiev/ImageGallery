@@ -1,13 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.Routing;
-using ImageGallery.Data.Models;
-using ImageGallery.Services.User;
-
-namespace ImageGallery.Web.Areas.Admin.Controllers
+﻿namespace ImageGallery.Web.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Manager")]
+    using System;
+    using System.Linq;
+    using System.Web.Mvc;
+    using System.Web.Routing;
+
+    using ImageGallery.Data.Models;
+    using ImageGallery.Services.User;
+
+    // [Authorize(Roles = "Manager")]
     public class BaseController : Controller
     {
         public BaseController(IUserService userService)
@@ -20,22 +21,21 @@ namespace ImageGallery.Web.Areas.Admin.Controllers
         protected IUserService UserService { get; set; }
 
         protected override IAsyncResult BeginExecute(
-            RequestContext requestContext,
-            AsyncCallback callback,
+            RequestContext requestContext, 
+            AsyncCallback callback, 
             object state)
         {
             this.UserProfile =
                 this.UserService.GetAll()
                     .FirstOrDefault(u => u.UserName == requestContext.HttpContext.User.Identity.Name);
 
-//            if (requestContext.HttpContext.User.Identity.IsAuthenticated)
-//            {
-//                if (this.UserProfile != null)
-//                {
-//                    this.ViewBag.Theme = this.UserProfile.Theme;
-//                }
-//            }
-
+            // if (requestContext.HttpContext.User.Identity.IsAuthenticated)
+            // {
+            // if (this.UserProfile != null)
+            // {
+            // this.ViewBag.Theme = this.UserProfile.Theme;
+            // }
+            // }
             return base.BeginExecute(requestContext, callback, state);
         }
     }

@@ -1,26 +1,26 @@
 ﻿@using ImageGallery.Web.Areas.Admin.Models.Album
 @using Kendo.Mvc.UI
-@model IEnumerable<AlbumListViewModel>
+@model IEnumerable<ImageGallery.Web.Areas.Admin.Models.Album.AlbumListViewModel>
 
 @{
     ViewBag.Title = "Albums";
 }
 
-<br />
+<br/>
 <div class="well k-content">
     <h3 class="well-title">Albums</h3>
-    <hr />
+    <hr/>
     <div>
         @Html.ActionLink("Add", "Add", "", new { @class = "k-button" })
     </div>
-    <br />
+    <br/>
     @(Html.Kendo().Grid<AlbumListViewModel>().Name("grid").Columns(columns =>
           {
               columns.Template(@<text></text>).ClientTemplate("<a href='" + Url.Action("Details", "Album", new { id = "#=Id#" }) + "'>" + "View" + "</a>");
               columns.Bound(c => c.Title);
-              columns.Bound(c => c.Date);              
+              columns.Bound(c => c.Date);
           }).ColumnMenu().Pageable(p => p.PageSizes(true)).Navigatable().Sortable(sortable => { sortable.SortMode(GridSortMode.SingleColumn); }).Filterable().Scrollable().DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("ReadAllAlbums", "Json")))
-    )
+          )
 </div>
 
 @section Scripts {

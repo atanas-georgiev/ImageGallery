@@ -1,14 +1,16 @@
-﻿using System.Linq;
-using System.Web;
-
-namespace ImageGallery.Services.Image
+﻿namespace ImageGallery.Services.Image
 {
+    using System.Linq;
+    using System.Web;
+
+    using ImageGallery.Data.Models;
+
     public interface IImageService
     {
-        IQueryable<Data.Models.Image> GetAll();
-
-        Data.Models.Image GetById(int id);
-
         void Add(int albumId, HttpPostedFileBase file, HttpServerUtility server);
+
+        IQueryable<Image> GetAll();
+
+        Image GetById(int id);
     }
 }

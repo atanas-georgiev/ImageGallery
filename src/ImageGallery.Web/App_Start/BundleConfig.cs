@@ -1,7 +1,7 @@
-﻿using System.Web.Optimization;
-
-namespace ImageGallery.Web
+﻿namespace ImageGallery.Web
 {
+    using System.Web.Optimization;
+
     public class BundleConfig
     {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
@@ -23,12 +23,12 @@ namespace ImageGallery.Web
 
             bundles.Add(
                 new StyleBundle("~/Content/kendo").Include(
-                    "~/Content/kendo/kendo.common.min.css",
+                    "~/Content/kendo/kendo.common.min.css", 
                     "~/Content/kendo/kendo.common-bootstrap.min.css"));
 
             bundles.Add(
                 new StyleBundle(
-                    "~/content/toastr",
+                    "~/content/toastr", 
                     "http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css").Include(
                         "~/Content/toastr.min.css"));
 
@@ -39,7 +39,7 @@ namespace ImageGallery.Web
         {
             bundles.Add(
                 new ScriptBundle("~/bundles/kendo").Include(
-                    "~/Scripts/kendo/kendo.web.min.js",
+                    "~/Scripts/kendo/kendo.web.min.js", 
                     "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/kendo/jquery.min.js"));
@@ -52,7 +52,7 @@ namespace ImageGallery.Web
 
             bundles.Add(
                 new ScriptBundle(
-                    "~/bundles/toastr",
+                    "~/bundles/toastr", 
                     "http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js").Include(
                         "~/Scripts/toastr.min.js"));
 

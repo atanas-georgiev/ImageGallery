@@ -1,17 +1,19 @@
-﻿using System.Linq;
-
-namespace ImageGallery.Services.User
+﻿namespace ImageGallery.Services.User
 {
+    using System.Linq;
+
+    using ImageGallery.Data.Models;
+
     public interface IUserService
     {
-        void Add(Data.Models.User user);
+        void Add(User user);
 
         void Delete(string id);
 
-        IQueryable<Data.Models.User> GetAll();
-        
-        Data.Models.User GetById(string id);
-        
-        void Update(Data.Models.User user);
+        IQueryable<User> GetAll();
+
+        User GetById(string id);
+
+        void Update(User user);
     }
 }

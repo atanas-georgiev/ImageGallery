@@ -1,11 +1,12 @@
-﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using ImageGallery.Data.Common.Models;
-
-namespace ImageGallery.Data.Common
+﻿namespace ImageGallery.Data.Common
 {
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    using System.Linq;
+
+    using ImageGallery.Data.Common.Models;
+
     public class Repository<T> : IRepository<T>
         where T : class, IHavePrimaryKey<string>, IDeletableEntity, IAuditInfo
     {
@@ -14,7 +15,7 @@ namespace ImageGallery.Data.Common
             if (context == null)
             {
                 throw new ArgumentException(
-                    "An instance of DbContext is required to use this repository.",
+                    "An instance of DbContext is required to use this repository.", 
                     nameof(context));
             }
 

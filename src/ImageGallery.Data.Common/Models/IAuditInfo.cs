@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace ImageGallery.Data.Common.Models
+﻿namespace ImageGallery.Data.Common.Models
 {
+    using System;
+
     public interface IAuditInfo
     {
         DateTime CreatedOn { get; set; }

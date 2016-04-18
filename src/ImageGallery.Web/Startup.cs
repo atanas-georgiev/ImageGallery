@@ -1,14 +1,16 @@
 ﻿using Microsoft.Owin;
-using Owin;
 
 [assembly: OwinStartup(typeof(ImageGallery.Web.Startup))]
+
 namespace ImageGallery.Web
 {
+    using Owin;
+
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            this.ConfigureAuth(app);
         }
     }
 }

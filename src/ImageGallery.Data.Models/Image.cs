@@ -1,30 +1,30 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using ImageGallery.Data.Common;
-using ImageGallery.Data.Common.Models;
-
-namespace ImageGallery.Data.Models
+﻿namespace ImageGallery.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
+    using ImageGallery.Data.Common;
+    using ImageGallery.Data.Common.Models;
+
     public class Image : BaseModel<int>, IHavePrimaryKey<int>
     {
-        [Required]
-        [MinLength(3)]
-        [MaxLength(150)]
-        public string Title { get; set; }
+        public virtual Album Album { get; set; }
+
+        public virtual int? AlbumId { get; set; }
 
         [MaxLength(3000)]
         public string Description { get; set; }
 
         [MaxLength(100)]
-        public string OriginalFileName { get; set; }
+        public string FileName { get; set; }
 
         public int ImageIdentificator { get; set; }
 
         [MaxLength(100)]
-        public string FileName { get; set; }
+        public string OriginalFileName { get; set; }
 
-        public virtual int? AlbumId { get; set; }
-
-        public virtual Album Album { get; set; }
+        [Required]
+        [MinLength(3)]
+        [MaxLength(150)]
+        public string Title { get; set; }
     }
 }
