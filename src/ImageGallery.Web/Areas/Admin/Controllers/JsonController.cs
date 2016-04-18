@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ImageGallery.Areas.Admin.Models.Album;
-using ImageGallery.Infrastructure.Mappings;
 using ImageGallery.Services.Album;
 using ImageGallery.Services.Image;
 using ImageGallery.Services.User;
+using ImageGallery.Web.Areas.Admin.Models.Album;
+using ImageGallery.Web.Infrastructure.Mappings;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
-using Planex.Web.Areas.Manager.Controllers;
 
-namespace ImageGallery.Areas.Admin.Controllers
+namespace ImageGallery.Web.Areas.Admin.Controllers
 {
     public class JsonController : BaseController
     {

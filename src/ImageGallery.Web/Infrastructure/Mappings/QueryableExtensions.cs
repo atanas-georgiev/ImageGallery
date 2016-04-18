@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper.QueryableExtensions;
 
-namespace ImageGallery.Infrastructure.Mappings
+namespace ImageGallery.Web.Infrastructure.Mappings
 {
     public static class QueryableExtensions
     {

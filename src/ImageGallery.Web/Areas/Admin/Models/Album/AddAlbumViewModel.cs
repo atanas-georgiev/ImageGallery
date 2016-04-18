@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using ImageGallery.Infrastructure.Mappings;
+using ImageGallery.Web.Infrastructure.Mappings;
 
-namespace ImageGallery.Areas.Admin.Models.Album
+namespace ImageGallery.Web.Areas.Admin.Models.Album
 {
     public class AddAlbumViewModel : IMapFrom<Data.Models.Album>
     {

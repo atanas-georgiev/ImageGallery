@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
-using ImageGallery.Infrastructure.Mappings;
+using ImageGallery.Web.Infrastructure.Mappings;
 
-namespace ImageGallery.Areas.Admin.Models.Album
+namespace ImageGallery.Web.Areas.Admin.Models.Album
 {
     public class AlbumDetailsViewModel : IMapFrom<Data.Models.Album>, IHaveCustomMappings
     {

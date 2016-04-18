@@ -1,13 +1,12 @@
-﻿using ImageGallery.Data.Models;
+﻿using System;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.Routing;
+using ImageGallery.Data.Models;
 using ImageGallery.Services.User;
 
-namespace Planex.Web.Areas.Manager.Controllers
+namespace ImageGallery.Web.Areas.Admin.Controllers
 {
-    using System;
-    using System.Linq;
-    using System.Web.Mvc;
-    using System.Web.Routing;
-    
     //[Authorize(Roles = "Manager")]
     public class BaseController : Controller
     {

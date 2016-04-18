@@ -1,4 +1,4 @@
-﻿namespace ImageGallery.Infrastructure.Mappings
+﻿namespace ImageGallery.Web.Infrastructure.Mappings
 {
     public interface IMapFrom<T>
     {

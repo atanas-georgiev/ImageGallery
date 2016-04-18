@@ -7,7 +7,7 @@ using ImageGallery.Data;
 using ImageGallery.Data.Common;
 using ImageGallery.Services.Album;
 
-namespace ImageGallery
+namespace ImageGallery.Web
 {
     public static class AutofacConfig
     {

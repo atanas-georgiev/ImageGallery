@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using ImageGallery.Areas.Admin.Models.Album;
 using ImageGallery.Data.Models;
-using ImageGallery.Infrastructure.Mappings;
 using ImageGallery.Services.Album;
 using ImageGallery.Services.User;
-using Planex.Web.Areas.Manager.Controllers;
+using ImageGallery.Web.Areas.Admin.Models.Album;
+using ImageGallery.Web.Infrastructure.Mappings;
 
-namespace ImageGallery.Areas.Admin.Controllers
+namespace ImageGallery.Web.Areas.Admin.Controllers
 {
     public class AlbumController : BaseController
     {

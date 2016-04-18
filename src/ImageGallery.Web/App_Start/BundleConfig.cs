@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace ImageGallery
+namespace ImageGallery.Web
 {
     public class BundleConfig
     {

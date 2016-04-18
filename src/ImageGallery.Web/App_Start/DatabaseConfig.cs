@@ -2,7 +2,7 @@
 using ImageGallery.Data;
 using ImageGallery.Data.Migrations;
 
-namespace ImageGallery
+namespace ImageGallery.Web
 {
     public static class DatabaseConfig
     {
