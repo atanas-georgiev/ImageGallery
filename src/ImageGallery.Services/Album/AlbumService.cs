@@ -18,5 +18,15 @@ namespace ImageGallery.Services.Album
         {
             return this.albums.All();
         }
+
+        public Data.Models.Album GetById(int id)
+        {
+            return this.GetAll().FirstOrDefault(x => x.Id == id);
+        }
+
+        public void Add(Data.Models.Album album)
+        {
+            this.albums.Add(album);            
+        }
     }
 }

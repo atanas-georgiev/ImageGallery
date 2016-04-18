@@ -1,15 +1,14 @@
-﻿@using Kendo.Mvc.UI
-@model ImageGallery.Areas.Admin.Models.Album.AddAlbumViewModel
+﻿@model ImageGallery.Areas.Admin.Models.Album.AlbumDetailsViewModel
 
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = "title";
 }
 
-<br />
-<div class="well k-content">
-    <h3 class="well-title">Add</h3>
-    <hr />
+<h2>title</h2>
 
+<div class="well k-content">
+    <h3 class="well-title">"Details"</h3>
+    <hr />
     @using (Html.BeginForm())
     {
     @Html.AntiForgeryToken()
@@ -33,15 +32,9 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Date)
             </div>
-        </div>                
-        <div class="form-group">
-            <input type="submit" value="Add" class="k-button" />
         </div>
     </div>
     }
-
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+

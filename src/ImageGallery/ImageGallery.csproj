@@ -195,6 +195,7 @@
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\JsonController.cs" />
     <Compile Include="Areas\Admin\Models\Album\AddAlbumViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Album\AlbumDetailsViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Album\AlbumListViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -654,6 +655,7 @@
     <Content Include="Areas\Admin\Views\Album\Index.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Album\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Album\Details.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
