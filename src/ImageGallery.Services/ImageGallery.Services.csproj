@@ -44,6 +44,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ImageProcessor, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageProcessor.2.3.3.0\lib\net45\ImageProcessor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="InfraStructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Web.InfraStructure.1.0.0\lib\InfraStructure.dll</HintPath>
       <Private>True</Private>
@@ -99,6 +103,7 @@
   <ItemGroup>
     <Compile Include="Album\AlbumService.cs" />
     <Compile Include="Album\IAlbumService.cs" />
+    <Compile Include="File\FileService.cs" />
     <Compile Include="Image\ImageService.cs" />
     <Compile Include="Image\IImageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
