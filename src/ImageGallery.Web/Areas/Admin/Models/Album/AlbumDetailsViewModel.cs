@@ -1,4 +1,8 @@
-﻿namespace ImageGallery.Web.Areas.Admin.Models.Album
+﻿using System.Collections;
+using System.Collections.Generic;
+using ImageGallery.Web.Areas.Admin.Models.Image;
+
+namespace ImageGallery.Web.Areas.Admin.Models.Album
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -23,6 +27,8 @@
         [MinLength(3)]
         [MaxLength(150)]
         public string Title { get; set; }
+
+        public List<ImageDetailsViewModel> Images { get; set; }
 
         public void CreateMappings(IConfiguration configuration)
         {

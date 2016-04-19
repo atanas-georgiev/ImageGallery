@@ -1,4 +1,5 @@
-﻿@using Kendo.Mvc.UI
+﻿@using ImageGallery.Web.Areas.Admin.Models.Image
+@using Kendo.Mvc.UI
 @model ImageGallery.Web.Areas.Admin.Models.Album.AlbumDetailsViewModel
 
 @{
@@ -15,21 +16,21 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            @Html.ValidationSummary(false, string.Empty, new { @class = "text-danger" })
+            @Html.ValidationSummary(false, string.Empty, new {@class = "text-danger"})
             <div class="form-group">
-                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Title, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Title)
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Description, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Description)
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Date, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Date)
                 </div>
@@ -39,8 +40,14 @@
                 @(Html.Kendo().Upload().Name("files").Async(a => a.Save("Save", "Upload").Remove("Remove", "Upload").AutoUpload(true))
                       )
             </div>
-        </div>
+        </div>        
     }
+
+    @foreach (ImageDetailsViewModel img in Model.Images)
+    {
+        <img src="@(Url.Content(ImageGallery.Common.Constants.MainContentFolder + "\\" + Model.Id + "\\" + ImageGallery.Common.Constants.ImageFolderLow + "\\" + @img.FileName))"/>
+    }
+
 </div>
 
 
