@@ -7,7 +7,7 @@
     {
         public string tumbsrc { get; set; }
 
-        public string msrc { get; set; }
+        //public string msrc { get; set; }
 
         public string src { get; set; }
 
@@ -23,13 +23,13 @@
                         opt.MapFrom(
                             c =>
                                 Common.Constants.MainContentFolder + "\\" + c.AlbumId + "\\" +
-                                Common.Constants.ImageFolderOriginal + "\\" + c.FileName))
-                .ForMember(m => m.msrc,
-                    opt =>
-                        opt.MapFrom(
-                            c =>
-                                Common.Constants.MainContentFolder + "\\" + c.AlbumId + "\\" +
                                 Common.Constants.ImageFolderMiddle + "\\" + c.FileName))
+//                .ForMember(m => m.msrc,
+//                    opt =>
+//                        opt.MapFrom(
+//                            c =>
+//                                Common.Constants.MainContentFolder + "\\" + c.AlbumId + "\\" +
+//                                Common.Constants.ImageFolderMiddle + "\\" + c.FileName))
                 .ForMember(m => m.tumbsrc,
                     opt =>
                         opt.MapFrom(

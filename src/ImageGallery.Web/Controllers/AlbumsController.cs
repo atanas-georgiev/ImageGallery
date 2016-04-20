@@ -32,7 +32,7 @@ namespace ImageGallery.Web.Controllers
             {
                 image.src = VirtualPathUtility.ToAbsolute(image.src);
                 image.tumbsrc = VirtualPathUtility.ToAbsolute(image.tumbsrc);
-                image.msrc = VirtualPathUtility.ToAbsolute(image.msrc);
+               // image.msrc = VirtualPathUtility.ToAbsolute(image.msrc);
             }
             return View(images);
         }
