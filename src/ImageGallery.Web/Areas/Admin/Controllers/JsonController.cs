@@ -24,7 +24,25 @@
             this.imageService = imageService;
         }
 
-        public ActionResult ReadAllAlbums([DataSourceRequest] DataSourceRequest request)
+        public ActionResult Albums_Read([DataSourceRequest] DataSourceRequest request)
+        {
+            var tasks = this.albumService.GetAll().To<AlbumListViewModel>();
+            return this.Json(tasks.ToDataSourceResult(request));
+        }
+
+        public ActionResult Albums_Create([DataSourceRequest] DataSourceRequest request)
+        {
+            var tasks = this.albumService.GetAll().To<AlbumListViewModel>();
+            return this.Json(tasks.ToDataSourceResult(request));
+        }
+
+        public ActionResult Albums_Update([DataSourceRequest] DataSourceRequest request)
+        {
+            var tasks = this.albumService.GetAll().To<AlbumListViewModel>();
+            return this.Json(tasks.ToDataSourceResult(request));
+        }
+
+        public ActionResult Albums_Destroy([DataSourceRequest] DataSourceRequest request)
         {
             var tasks = this.albumService.GetAll().To<AlbumListViewModel>();
             return this.Json(tasks.ToDataSourceResult(request));
