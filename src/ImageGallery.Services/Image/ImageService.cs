@@ -79,9 +79,6 @@ namespace ImageGallery.Services.Image
                             .Resize(new ResizeLayer(new Size(Common.Constants.ImageLowMaxSize, Common.Constants.ImageLowMaxSize), ResizeMode.Max))
                             .Format(new JpegFormat { Quality = 70 })
                             .Save(outStream);
-
-                            this.width = imageFactory.Load(outStream).Image.Width;
-                            this.height = imageFactory.Load(outStream).Image.Height;
                     }
                     else if (type == ImageType.Medium)
                     {
@@ -89,6 +86,8 @@ namespace ImageGallery.Services.Image
                             .Resize(new ResizeLayer(new Size(Common.Constants.ImageMiddleMaxSize, Common.Constants.ImageMiddleMaxSize), ResizeMode.Max))
                             .Format(new JpegFormat { Quality = 70 })
                             .Save(outStream);
+                        this.width = imageFactory.Load(outStream).Image.Width;
+                        this.height = imageFactory.Load(outStream).Image.Height;
                     }
                     
                     FileService.Save(outStream, type, originalFilename, albumId, server);
