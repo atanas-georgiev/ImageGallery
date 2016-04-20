@@ -202,6 +202,7 @@
     <Compile Include="Areas\Admin\Models\Album\AlbumListViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Image\ImageDetailsViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AlbumsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Infrastructure\Mappings\IMapTo.cs" />
     <Compile Include="Infrastructure\Mappings\QueryableExtensions.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Album\AlbumViewModel.cs" />
     <Compile Include="Models\Image\ImageViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -770,6 +772,8 @@
     <Content Include="Views\Shared\EditorTemplates\Editor.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <None Include="Views\Albums\Details.cshtml" />
+    <None Include="Views\Albums\Index.cshtml" />
     <None Include="Views\Image\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

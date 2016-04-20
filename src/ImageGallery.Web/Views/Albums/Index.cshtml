@@ -1,0 +1,8 @@
+﻿@model IEnumerable<ImageGallery.Web.Models.Album.AlbumViewModel>
+
+<h2>Albums</h2>
+
+@foreach (var album in Model)
+{
+    <a href="/Albums/Details/@album.Id">@album.Title</a>
+}

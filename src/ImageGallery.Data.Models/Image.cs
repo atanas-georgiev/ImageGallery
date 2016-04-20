@@ -19,6 +19,14 @@
 
         public int ImageIdentificator { get; set; }
 
+        public int LowWidth { get; set; }
+
+        public int LowHeight { get; set; }
+
+        public int MidWidth { get; set; }
+
+        public int MidHeight { get; set; }
+
         public int Width { get; set; }
 
         public int Height { get; set; }

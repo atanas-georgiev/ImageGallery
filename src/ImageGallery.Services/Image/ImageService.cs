@@ -27,6 +27,12 @@ namespace ImageGallery.Services.Image
         private int width;
         private int height;
 
+        private int midwidth;
+        private int midheight;
+
+        private int lowwidth;
+        private int lowheight;
+
         public ImageService(IRepository<Image, int> images, IRepository<Album, int> albums)
         {
             this.images = images;
@@ -46,7 +52,13 @@ namespace ImageGallery.Services.Image
             FileService.CreateInitialFolders(albumId, server);
             FileService.Save(file.InputStream, ImageType.Original, originalFilename, albumId, server);
             this.Resize(file.InputStream, ImageType.Medium, albumId, originalFilename, server);
-            this.Resize(file.InputStream, ImageType.Low, albumId, originalFilename, server);            
+            this.Resize(file.InputStream, ImageType.Low, albumId, originalFilename, server);
+
+            using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
+            {                
+                this.width = imageFactory.Load(file.InputStream).Image.Width;
+                this.height = imageFactory.Load(file.InputStream).Image.Height;
+            }
 
             GC.Collect();
 
@@ -59,7 +71,11 @@ namespace ImageGallery.Services.Image
                                      FileName = originalFilename, 
                                      ImageIdentificator = 1,
                                      Width = this.width,
-                                     Height = this.height
+                                     Height = this.height,
+                                     LowHeight = this.lowheight,
+                                     LowWidth = this.lowwidth,
+                                     MidHeight = this.midheight,
+                                     MidWidth = this.midwidth
                                  };
 
             this.images.Add(newDbImage);
@@ -79,6 +95,8 @@ namespace ImageGallery.Services.Image
                             .Resize(new ResizeLayer(new Size(Common.Constants.ImageLowMaxSize, Common.Constants.ImageLowMaxSize), ResizeMode.Max))
                             .Format(new JpegFormat { Quality = 70 })
                             .Save(outStream);
+                        this.lowwidth = imageFactory.Load(outStream).Image.Width;
+                        this.lowheight = imageFactory.Load(outStream).Image.Height;
                     }
                     else if (type == ImageType.Medium)
                     {
@@ -86,8 +104,8 @@ namespace ImageGallery.Services.Image
                             .Resize(new ResizeLayer(new Size(Common.Constants.ImageMiddleMaxSize, Common.Constants.ImageMiddleMaxSize), ResizeMode.Max))
                             .Format(new JpegFormat { Quality = 70 })
                             .Save(outStream);
-                        this.width = imageFactory.Load(outStream).Image.Width;
-                        this.height = imageFactory.Load(outStream).Image.Height;
+                        this.midwidth = imageFactory.Load(outStream).Image.Width;
+                        this.midheight = imageFactory.Load(outStream).Image.Height;
                     }
                     
                     FileService.Save(outStream, type, originalFilename, albumId, server);
