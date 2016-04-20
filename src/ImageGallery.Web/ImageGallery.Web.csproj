@@ -781,9 +781,15 @@
     <Content Include="Views\Shared\EditorTemplates\Editor.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
-    <None Include="Views\Albums\Details.cshtml" />
-    <None Include="Views\Albums\Index.cshtml" />
-    <None Include="Views\Image\Index.cshtml" />
+    <Content Include="Views\Albums\Details.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Albums\Index.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Image\Index.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
