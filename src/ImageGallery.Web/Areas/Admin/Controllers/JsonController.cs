@@ -29,23 +29,5 @@
             var tasks = this.albumService.GetAll().To<AlbumListViewModel>();
             return this.Json(tasks.ToDataSourceResult(request));
         }
-
-        public ActionResult Albums_Create([DataSourceRequest] DataSourceRequest request)
-        {
-            var tasks = this.albumService.GetAll().To<AlbumListViewModel>();
-            return this.Json(tasks.ToDataSourceResult(request));
-        }
-
-        public ActionResult Albums_Update([DataSourceRequest] DataSourceRequest request)
-        {
-            var tasks = this.albumService.GetAll().To<AlbumListViewModel>();
-            return this.Json(tasks.ToDataSourceResult(request));
-        }
-
-        public ActionResult Albums_Destroy([DataSourceRequest] DataSourceRequest request)
-        {
-            var tasks = this.albumService.GetAll().To<AlbumListViewModel>();
-            return this.Json(tasks.ToDataSourceResult(request));
-        }
     }
 }

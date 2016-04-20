@@ -19,6 +19,10 @@
 
         public int ImageIdentificator { get; set; }
 
+        public int Width { get; set; }
+
+        public int Height { get; set; }
+
         [MaxLength(100)]
         public string OriginalFileName { get; set; }
 

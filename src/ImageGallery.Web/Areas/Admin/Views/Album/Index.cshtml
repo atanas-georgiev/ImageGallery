@@ -6,7 +6,7 @@
     ViewBag.Title = "Albums";
 }
 
-<br/>
+<br />
 @*<div class="well k-content">*@
 @*    <h3 class="well-title">Albums</h3>*@
 @*    <hr/>*@
@@ -24,7 +24,9 @@
 @*</div>*@
 
 <div class="demo-section k-content wide">
-    <a class="k-button k-button-icontext k-add-button" href="#"><span class="k-icon k-add"></span>Add new record</a>
+    @Html.ActionLink("Add", "Add", "", new { @class = "k-button" })
+    <br/>
+    <br />
     @(Html.Kendo().ListView(Model)
     .Name("listAlbums")
     .TagName("div")
@@ -32,39 +34,42 @@
     .DataSource(dataSource => dataSource
         .Model(model => model.Id("Id"))
         .PageSize(10)
-        .Create(create => create.Action("Albums_Create", "Json"))
         .Read(read => read.Action("Albums_Read", "Json"))
-        .Update(update => update.Action("Albums_Update", "Json"))
-        .Destroy(destroy => destroy.Action("Albums_Destroy", "Json"))
     )
     .Pageable()
-    .Editable()
     )
 </div>
 
 
 <script type="text/x-kendo-tmpl" id="template">
+
     <div class="product-view k-widget">
-        <dl>            
+        <dl>
             <dt>Title</dt>
-            <dd><a href="/Admin/Album/Details/#:Id#">#:Title#</a></dd>            
+            <dd>#:Title#</dd>
             <dt>Description</dt>
             <dd>#:Description#</dd>
             <dt>Date</dt>
             <dd>#:Date#</dd>
         </dl>
         <div class="edit-buttons">
-            <a class="k-button k-edit-button" href="\\#"><span class="k-icon k-edit"></span></a>
-            <a class="k-button k-delete-button" href="\\#"><span class="k-icon k-delete"></span></a>
+            <a href="/Admin/Album/Details/#:Id#">
+                <h4>#:Title#</h4>
+            </a>
+            
+@*            <a class="k-button k-edit-button" href="\\#"><span class="k-icon k-edit"></span></a>*@
+@*            <a class="k-button k-delete-button" href="\\#"><span class="k-icon k-delete"></span></a>*@
         </div>
     </div>
+
+
 </script>
 
 <script>
-    $(function() {
+    $(function () {
         var listView = $("#listView").data("kendoListView");
 
-        $(".k-add-button").click(function(e) {
+        $(".k-add-button").click(function (e) {
             listView.add();
             e.preventDefault();
         });
@@ -81,43 +86,43 @@
         position: relative;
     }
 
-    .product-view:nth-child(even) {
-        border-left-width: 0;
-    }
+        .product-view:nth-child(even) {
+            border-left-width: 0;
+        }
 
-    .product-view dl {
-        margin: 10px 10px 0;
-        padding: 0;
-        overflow: hidden;
-    }
+        .product-view dl {
+            margin: 10px 10px 0;
+            padding: 0;
+            overflow: hidden;
+        }
 
-    .product-view dt, dd {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        line-height: 24px;
-        font-size: 18px;
-    }
+        .product-view dt, dd {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            line-height: 24px;
+            font-size: 18px;
+        }
 
-    .product-view dt {
-        font-size: 11px;
-        height: 16px;
-        line-height: 16px;
-        text-transform: uppercase;
-        opacity: 0.5;
-    }
+        .product-view dt {
+            font-size: 11px;
+            height: 16px;
+            line-height: 16px;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
 
-    .product-view dd {
-        height: 46px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
+        .product-view dd {
+            height: 46px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
 
-    .product-view dd .k-widget,
-    .product-view dd .k-textbox {
-        font-size: 14px;
-    }
+            .product-view dd .k-widget,
+            .product-view dd .k-textbox {
+                font-size: 14px;
+            }
 
     .k-listview {
         border-width: 1px 0 0;
@@ -131,7 +136,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        text-align: right;
+        text-align: left;
         padding: 5px;
         background-color: rgba(0, 0, 0, 0.1);
     }
@@ -155,9 +160,9 @@
             width: 100%;
         }
 
-        .product-view:nth-child(even) {
-            border-left-width: 1px;
-        }
+            .product-view:nth-child(even) {
+                border-left-width: 1px;
+            }
     }
 </style>
 

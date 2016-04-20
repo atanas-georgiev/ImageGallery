@@ -24,6 +24,9 @@ namespace ImageGallery.Services.Image
 
         private IRepository<Image, int> images;
 
+        private int width;
+        private int height;
+
         public ImageService(IRepository<Image, int> images, IRepository<Album, int> albums)
         {
             this.images = images;
@@ -54,7 +57,9 @@ namespace ImageGallery.Services.Image
                                      Description = "aaaaaaaaaaaaaaaa", 
                                      OriginalFileName = originalFilename, 
                                      FileName = originalFilename, 
-                                     ImageIdentificator = 1
+                                     ImageIdentificator = 1,
+                                     Width = this.width,
+                                     Height = this.height
                                  };
 
             this.images.Add(newDbImage);
@@ -74,6 +79,9 @@ namespace ImageGallery.Services.Image
                             .Resize(new ResizeLayer(new Size(Common.Constants.ImageLowMaxSize, Common.Constants.ImageLowMaxSize), ResizeMode.Max))
                             .Format(new JpegFormat { Quality = 70 })
                             .Save(outStream);
+
+                            this.width = imageFactory.Load(outStream).Image.Width;
+                            this.height = imageFactory.Load(outStream).Image.Height;
                     }
                     else if (type == ImageType.Medium)
                     {
@@ -82,6 +90,7 @@ namespace ImageGallery.Services.Image
                             .Format(new JpegFormat { Quality = 70 })
                             .Save(outStream);
                     }
+                    
                     FileService.Save(outStream, type, originalFilename, albumId, server);
                 }
             }
