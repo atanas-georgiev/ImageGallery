@@ -23,8 +23,6 @@ namespace ImageGallery.Data.Models
         [MaxLength(100)]
         public string FileName { get; set; }
 
-        public int ImageIdentificator { get; set; }
-
         public int LowWidth { get; set; }
 
         public int LowHeight { get; set; }
@@ -53,11 +51,11 @@ namespace ImageGallery.Data.Models
         [MaxLength(50)]
         public string CameraMaker { get; set; }
 
-        public double? FStop { get; set; }
+        public string Aperture { get; set; }
 
-        public double? ExposureTime { get; set; }
+        public string ShutterSpeed { get; set; }
 
-        public double? Iso { get; set; }
+        public int? Iso { get; set; }
 
         public double? ExposureBiasStep { get; set; }
 

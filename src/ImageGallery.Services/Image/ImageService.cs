@@ -1,10 +1,13 @@
 ﻿using System.Globalization;
 using System.Text;
+using System.Threading;
 using ImageGallery.Common;
 using ImageGallery.Services.File;
 using ImageProcessor;
 using ImageProcessor.Imaging;
 using ImageProcessor.Imaging.Formats;
+using MetadataExtractor;
+using MetadataExtractor.Formats.Exif;
 
 namespace ImageGallery.Services.Image
 {
@@ -52,51 +55,130 @@ namespace ImageGallery.Services.Image
                 return;
             }
 
-            var originalFilename = Path.GetFileName(file.FileName);
+            Data.Models.Image image = ExtractExifData(file.InputStream);
 
-            using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
+//            string test = "";
+//
+//            while (test == "")
+//            {
+//                test = TestGeo.RetrieveFormatedAddress("42.697626", "23.322284");
+//                Thread.Sleep(500);
+//            }
+
+            if (image.FileName != null)
             {
-                this.width = imageFactory.Load(file.InputStream).Image.Width;
-                this.height = imageFactory.Load(file.InputStream).Image.Height;
-                var a = imageFactory.Load(file.InputStream).ExifPropertyItems[36867];
+                image.FileName += Path.GetExtension(file.FileName);
+            }
 
-                //Convert date taken metadata to a DateTime object
-                string sdate = Encoding.UTF8.GetString(a.Value).Trim();
-                string secondhalf = sdate.Substring(sdate.IndexOf(" "), (sdate.Length - sdate.IndexOf(" ")));
-                string firsthalf = sdate.Substring(0, 10);
-                firsthalf = firsthalf.Replace(":", "-");
-                sdate = firsthalf + secondhalf;
-                this.dateTaken = DateTime.Parse(sdate);
-            }            
-
-            var newFilename = this.dateTaken.ToString("yyyy-MM-dd-HH-mm-ss-", CultureInfo.CreateSpecificCulture("en-US")) + Guid.NewGuid() + Path.GetExtension(file.FileName);
-
+            image.OriginalFileName = Path.GetFileName(file.FileName);
+                   
             // Create initial folders if not available
             FileService.CreateInitialFolders(albumId, server);
-            FileService.Save(file.InputStream, ImageType.Original, newFilename, albumId, server);
-            this.Resize(file.InputStream, ImageType.Medium, albumId, newFilename, server);
-            this.Resize(file.InputStream, ImageType.Low, albumId, newFilename, server);
+            FileService.Save(file.InputStream, ImageType.Original, image.FileName, albumId, server);
+            this.Resize(file.InputStream, ImageType.Medium, albumId, image.FileName, server);
+            this.Resize(file.InputStream, ImageType.Low, albumId, image.FileName, server);
 
             GC.Collect();
 
-            var newDbImage = new Data.Models.Image()
-                                 {
-                                     AlbumId = albumId, 
-                                     Title = "aaaaaaaaaaaaaaaaaa", 
-                                     Description = "aaaaaaaaaaaaaaaa", 
-                                     OriginalFileName = originalFilename, 
-                                     FileName = newFilename, 
-                                     ImageIdentificator = 1,
-                                     Width = this.width,
-                                     Height = this.height,
-                                     LowHeight = this.lowheight,
-                                     LowWidth = this.lowwidth,
-                                     MidHeight = this.midheight,
-                                     MidWidth = this.midwidth,
-                                     DateTaken = this.dateTaken
-                                 };
+            image.AlbumId = albumId;
+            image.Title = "aaaaaaaaaaaaaaaaaa";
+            image.Description = "aaaaaaaaaaaaaaaa";
+            image.LowHeight = this.lowheight;
+            image.LowWidth = this.lowwidth;
+            image.MidHeight = this.midheight;
+            image.MidWidth = this.midwidth;
+           
+            this.images.Add(image);
+        }
 
-            this.images.Add(newDbImage);
+        private Data.Models.Image ExtractExifData(Stream inputStream)
+        {
+            var newImage = new Data.Models.Image();
+
+            using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
+            {
+                var imageFactoryStream = ImageMetadataReader.ReadMetadata(inputStream);
+                var subIfdDirectory = imageFactoryStream.OfType<ExifSubIfdDirectory>().FirstOrDefault();
+
+                try
+                {
+                    newImage.DateTaken = subIfdDirectory?.GetDateTime(ExifDirectoryBase.TagDateTimeOriginal);
+                }
+                catch
+                {
+                    newImage.DateTaken = subIfdDirectory?.GetDateTime(ExifDirectoryBase.TagDateTime);
+                }
+
+                try
+                {
+                    newImage.FileName =
+                        subIfdDirectory?.GetDateTime(ExifDirectoryBase.TagDateTimeOriginal)
+                            .ToString("yyyy-MM-dd-HH-mm-ss-", CultureInfo.CreateSpecificCulture("en-US")) +
+                        Guid.NewGuid();
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    newImage.Iso = subIfdDirectory?.GetInt32(ExifDirectoryBase.TagIsoEquivalent);
+                }
+                catch
+                {
+                    // ignored
+                }
+
+                try
+                {
+                    newImage.ShutterSpeed = subIfdDirectory?.GetDescription(ExifDirectoryBase.TagShutterSpeed);
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    newImage.Aperture = subIfdDirectory?.GetDescription(ExifDirectoryBase.TagAperture);
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    newImage.FocusLen = subIfdDirectory?.GetDouble(ExifDirectoryBase.TagFocalLength);
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    newImage.CameraMaker = subIfdDirectory?.GetDescription(ExifDirectoryBase.TagMakernote);
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    newImage.CameraModel = subIfdDirectory?.GetDescription(ExifDirectoryBase.TagModel);
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    newImage.ExposureBiasStep = subIfdDirectory?.GetDouble(ExifDirectoryBase.TagExposureBias);
+                }
+                catch
+                {
+                }
+            }
+
+            return newImage;
         }
 
         private void Resize(Stream inputStream, ImageType type, int albumId, string originalFilename, HttpServerUtility server)
