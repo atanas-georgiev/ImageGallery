@@ -1,4 +1,6 @@
-﻿namespace ImageGallery.Data.Models
+﻿using System;
+
+namespace ImageGallery.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -10,6 +12,10 @@
         public virtual Album Album { get; set; }
 
         public virtual int? AlbumId { get; set; }
+
+        public virtual ImageGpsData ImageGpsData { get; set; }
+
+        public virtual int? ImageGpsDataId { get; set; }
 
         [MaxLength(3000)]
         public string Description { get; set; }
@@ -38,5 +44,23 @@
         [MinLength(3)]
         [MaxLength(150)]
         public string Title { get; set; }
+
+        public DateTime? DateTaken { get; set; }
+
+        [MaxLength(50)]
+        public string CameraModel { get; set; }
+
+        [MaxLength(50)]
+        public string CameraMaker { get; set; }
+
+        public double? FStop { get; set; }
+
+        public double? ExposureTime { get; set; }
+
+        public double? Iso { get; set; }
+
+        public double? ExposureBiasStep { get; set; }
+
+        public double? FocusLen { get; set; }
     }
 }

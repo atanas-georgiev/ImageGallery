@@ -18,6 +18,10 @@
 
         public virtual IDbSet<Album> Albums { get; set; }
 
+        public virtual IDbSet<Image> Images { get; set; }
+
+        public virtual IDbSet<ImageGpsData> ImageGpsDatas { get; set; }
+
         public static ImageGalleryDbContext Create()
         {
             return new ImageGalleryDbContext();

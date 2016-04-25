@@ -1,4 +1,6 @@
-﻿using ImageGallery.Common;
+﻿using System.Globalization;
+using System.Text;
+using ImageGallery.Common;
 using ImageGallery.Services.File;
 using ImageProcessor;
 using ImageProcessor.Imaging;
@@ -15,6 +17,8 @@ namespace ImageGallery.Services.Image
 
     using ImageGallery.Data.Common;
     using ImageGallery.Data.Models;
+
+    using System.Drawing.Imaging;
 
     using Image = ImageGallery.Data.Models.Image;
 
@@ -33,6 +37,8 @@ namespace ImageGallery.Services.Image
         private int lowwidth;
         private int lowheight;
 
+        private DateTime dateTaken;
+
         public ImageService(IRepository<Image, int> images, IRepository<Album, int> albums)
         {
             this.images = images;
@@ -48,17 +54,28 @@ namespace ImageGallery.Services.Image
 
             var originalFilename = Path.GetFileName(file.FileName);
 
-            // Create initial folders if not available
-            FileService.CreateInitialFolders(albumId, server);
-            FileService.Save(file.InputStream, ImageType.Original, originalFilename, albumId, server);
-            this.Resize(file.InputStream, ImageType.Medium, albumId, originalFilename, server);
-            this.Resize(file.InputStream, ImageType.Low, albumId, originalFilename, server);
-
             using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
-            {                
+            {
                 this.width = imageFactory.Load(file.InputStream).Image.Width;
                 this.height = imageFactory.Load(file.InputStream).Image.Height;
-            }
+                var a = imageFactory.Load(file.InputStream).ExifPropertyItems[36867];
+
+                //Convert date taken metadata to a DateTime object
+                string sdate = Encoding.UTF8.GetString(a.Value).Trim();
+                string secondhalf = sdate.Substring(sdate.IndexOf(" "), (sdate.Length - sdate.IndexOf(" ")));
+                string firsthalf = sdate.Substring(0, 10);
+                firsthalf = firsthalf.Replace(":", "-");
+                sdate = firsthalf + secondhalf;
+                this.dateTaken = DateTime.Parse(sdate);
+            }            
+
+            var newFilename = this.dateTaken.ToString("yyyy-MM-dd-HH-mm-ss-", CultureInfo.CreateSpecificCulture("en-US")) + Guid.NewGuid() + Path.GetExtension(file.FileName);
+
+            // Create initial folders if not available
+            FileService.CreateInitialFolders(albumId, server);
+            FileService.Save(file.InputStream, ImageType.Original, newFilename, albumId, server);
+            this.Resize(file.InputStream, ImageType.Medium, albumId, newFilename, server);
+            this.Resize(file.InputStream, ImageType.Low, albumId, newFilename, server);
 
             GC.Collect();
 
@@ -68,14 +85,15 @@ namespace ImageGallery.Services.Image
                                      Title = "aaaaaaaaaaaaaaaaaa", 
                                      Description = "aaaaaaaaaaaaaaaa", 
                                      OriginalFileName = originalFilename, 
-                                     FileName = originalFilename, 
+                                     FileName = newFilename, 
                                      ImageIdentificator = 1,
                                      Width = this.width,
                                      Height = this.height,
                                      LowHeight = this.lowheight,
                                      LowWidth = this.lowwidth,
                                      MidHeight = this.midheight,
-                                     MidWidth = this.midwidth
+                                     MidWidth = this.midwidth,
+                                     DateTaken = this.dateTaken
                                  };
 
             this.images.Add(newDbImage);
