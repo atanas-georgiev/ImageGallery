@@ -54,6 +54,8 @@
 
             bundles.Add(new ScriptBundle("~/bundles/geocomplete").Include("~/Scripts/Geocomplete/*.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/montage").Include("~/Scripts/Montage/*.js"));
+
             bundles.Add(
                 new ScriptBundle(
                     "~/bundles/toastr", 

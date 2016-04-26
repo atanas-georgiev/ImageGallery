@@ -731,6 +731,7 @@
     <None Include="Scripts\Kendo\_references.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Montage\jquery.montage.js" />
     <Content Include="Scripts\Photoswipe\photoswipe-ui-default.js" />
     <Content Include="Scripts\Photoswipe\photoswipe-ui-default.min.js" />
     <Content Include="Scripts\Photoswipe\photoswipe.js" />

@@ -1,37 +1,39 @@
 ﻿@using Newtonsoft.Json
 @model IEnumerable<ImageGallery.Web.Models.Image.ImageViewModel>
 
-<style>
-    .my-gallery {
-  width: 100%;
-  float: left;
-}
-.my-gallery img {
-  width: 100%;
-  height: auto;
-}
-.my-gallery figure {
-  display: block;
-  float: left;
-  margin: 0 5px 5px 0;
-  width: 150px;
-}
-.my-gallery figcaption {
-  display: none;
-}
-</style>
+@*<style>*@
+@*    .my-gallery {*@
+@*  width: 100%;*@
+@*  float: left;*@
+@*}*@
+@*.my-gallery img {*@
+@*  width: 100%;*@
+@*  height: auto;*@
+@*}*@
+@*.my-gallery figure {*@
+@*  display: block;*@
+@*  float: left;*@
+@*  margin: 0 5px 5px 0;*@
+@*  width: 150px;*@
+@*}*@
+@*.my-gallery figcaption {*@
+@*  display: none;*@
+@*}*@
+@*</style>*@
 
-<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-    @foreach (var image in Model)
-    {
-    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-        <a href="@image.src" itemprop="contentUrl">
-            <img src="@image.tumbsrc" itemprop="thumbnail" alt="@image.desc" />
-        </a>
-        <figcaption itemprop="caption description">@image.desc</figcaption>
-    </figure>
-    }
-</div>
+
+<div class="my-gallery am-container" id="am-container" itemscope itemtype="http://schema.org/ImageGallery">
+
+        @foreach (var image in Model)
+        {
+               <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                 <a href="@image.src" itemprop="contentUrl">
+                    <img src="@image.tumbsrc" itemprop="thumbnail" alt="@image.desc" />
+                 </a>
+@*                  <figcaption itemprop="caption description">@image.desc</figcaption>*@
+               </figure>
+        }
+    </div>
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -98,7 +100,7 @@
 </div>
 
 <script>
-    var initPhotoSwipeFromDOM = function (gallerySelector) {
+    var initPhotoSwipeFromDOM = function(gallerySelector) {
 
         // find nearest parent element
         var closest = function closest(el, fn) {
@@ -106,14 +108,14 @@
         };
 
         // triggers when user clicks on thumbnail
-        var onThumbnailsClick = function (e) {
+        var onThumbnailsClick = function(e) {
             e = e || window.event;
             e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
             var eTarget = e.target || e.srcElement;
 
             // find root element of slide
-            var clickedListItem = closest(eTarget, function (el) {
+            var clickedListItem = closest(eTarget, function(el) {
                 return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
             });
 
@@ -142,7 +144,6 @@
             }
 
 
-
             if (index >= 0) {
                 // open PhotoSwipe if valid index found
                 openPhotoSwipe(index, clickedGallery);
@@ -151,9 +152,9 @@
         };
 
         // parse picture index and gallery index from URL (#&pid=1&gid=2)
-        var photoswipeParseHash = function () {
+        var photoswipeParseHash = function() {
             var hash = window.location.hash.substring(1),
-            params = {};
+                params = {};
 
             if (hash.length < 5) {
                 return params;
@@ -178,13 +179,13 @@
             return params;
         };
 
-        var openPhotoSwipe = function (index, galleryElement, disableAnimation, fromURL) {
+        var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
             var pswpElement = document.querySelectorAll('.pswp')[0],
                 gallery,
                 options,
                 items;
 
-            items = @Html.Raw(JsonConvert.SerializeObject(Model));//parseThumbnailElements(galleryElement);
+            items = @Html.Raw(JsonConvert.SerializeObject(Model)); //parseThumbnailElements(galleryElement);
 
             // define options (if needed)
             options = {
@@ -200,7 +201,7 @@
 //
 //                    return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
 //                }
-                preload: [1,1]
+                preload: [1, 1]
             };
 
             // PhotoSwipe opened from URL
@@ -253,4 +254,61 @@
 
     // execute above function
     initPhotoSwipeFromDOM('.my-gallery');
+</script>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+@Scripts.Render("~/bundles/montage")
+<script type="text/javascript">
+			$(function() {
+				/*
+				 * just for this demo:
+				 */
+				$('#showcode').toggle(
+					function() {
+						$(this).addClass('up').removeClass('down').next().slideDown();
+					},
+					function() {
+						$(this).addClass('down').removeClass('up').next().slideUp();
+					}
+				);
+				$('#panel').toggle(
+					function() {
+						$(this).addClass('show').removeClass('hide');
+						$('#overlay').stop().animate( { left : - $('#overlay').width() + 20 + 'px' }, 300 );
+					},
+					function() {
+						$(this).addClass('hide').removeClass('show');
+						$('#overlay').stop().animate( { left : '0px' }, 300 );
+					}
+				);
+
+				var $container 	= $('#am-container'),
+					$imgs		= $container.find('img').hide(),
+					totalImgs	= $imgs.length,
+					cnt			= 0;
+
+				$imgs.each(function(i) {
+					var $img	= $(this);
+					$('<img/>').load(function() {
+						++cnt;
+						if( cnt === totalImgs ) {
+							$imgs.show();
+							$container.montage({
+								fillLastRow				: false,
+								alternateHeight			: true,
+								alternateHeightRange	: {
+									min	: 100,
+									max	: 250
+								}
+							});
+
+							/*
+							 * just for this demo:
+							 */
+							$('#overlay').fadeIn(500);
+						}
+					}).attr('src',$img.attr('src'));
+				});
+
+			});
 </script>
