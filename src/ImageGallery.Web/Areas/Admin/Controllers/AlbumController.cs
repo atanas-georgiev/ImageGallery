@@ -50,8 +50,7 @@
         {
             this.Session["AlbumId"] = id;
             var intId = int.Parse(id);
-            var result =
-                this.albumService.GetAll().Where(x => x.Id == intId).To<AlbumDetailsViewModel>().FirstOrDefault();
+            var result = this.albumService.GetAll().Where(x => x.Id == intId).To<AlbumDetailsViewModel>().FirstOrDefault();
             return this.View(result);
         }
 
