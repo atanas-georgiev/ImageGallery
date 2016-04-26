@@ -176,6 +176,22 @@ namespace ImageGallery.Services.Image
                 catch
                 {
                 }
+
+                try
+                {
+                    newImage.Width = subIfdDirectory.GetInt32(ExifDirectoryBase.TagImageWidth);
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    newImage.Height = subIfdDirectory.GetInt32(ExifDirectoryBase.TagImageHeight);
+                }
+                catch
+                {
+                }
             }
 
             return newImage;

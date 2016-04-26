@@ -26,9 +26,9 @@
     {
     <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
         <a href="@image.src" itemprop="contentUrl">
-            <img src="@image.tumbsrc" itemprop="thumbnail" alt="Image description" />
+            <img src="@image.tumbsrc" itemprop="thumbnail" alt="@image.desc" />
         </a>
-@*        <figcaption itemprop="caption description">Image caption  1</figcaption>*@
+        <figcaption itemprop="caption description">@image.desc</figcaption>
     </figure>
     }
 </div>
