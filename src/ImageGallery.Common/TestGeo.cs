@@ -5,39 +5,63 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static System.String;
 
 namespace ImageGallery.Common
 {
     public class TestGeo
     {
-        private static string baseUri =
-            "http://dev.virtualearth.net/REST/v1/Locations/{0},{1}?o=xml&key=AmAbR13CxXmAFIH2Fr3BiJ5FjWpYgg3BfTrm9xWJalzC4zDHoiOH0sxbUL8BCdU3";
-          //"http://maps.googleapis.com/maps/api/geocode/xml?latlng={0},{1}&sensor=false";
-        string location = string.Empty;
+        private static string key = "AIzaSyAJOGz_xyAi_2CdRPW4HX-g5E1WcTwQMSY";
+        private static string baseUri = "https://maps.googleapis.com/maps/api/geocode/xml?address={0}+CA&key={1}";
 
-        public static string RetrieveFormatedAddress(string lat, string lng)
+    public static Tuple<double, double> RetrieveCoordinates(string location)
+    {
+        string requestUri = Format(baseUri, location, key);
+
+        using (WebClient wc = new WebClient())
         {
-            string requestUri = string.Format(baseUri, lat, lng);
-
-            using (WebClient wc = new WebClient())
+            string result = wc.DownloadString(requestUri);
+            var xmlElm = XElement.Parse(result);
+            var status = (from elm in xmlElm.Descendants()
+                            where
+                            elm.Name == "status"
+                            select elm).FirstOrDefault();
+            if (status.Value.ToLower() == "ok")
             {
-                string result = wc.DownloadString(requestUri);
-                var xmlElm = XElement.Parse(result);
-                var status = (from elm in xmlElm.Descendants()
-                              where
-                                elm.Name == "status"
-                              select elm).FirstOrDefault();                
-                if (status.Value.ToLower() == "ok")
-                {
-                    var res = (from elm in xmlElm.Descendants()
-                               where
-                                elm.Name == "formatted_address"
-                               select elm).FirstOrDefault();
-                    requestUri = res.Value;
-                    return requestUri;
-                }
-                return "";
+                var res = (from elm in xmlElm.Descendants()
+                            where
+                            elm.Name == "formatted_address"
+                            select elm).FirstOrDefault();
+                requestUri = res.Value;
+                return new Tuple<double, double>(1,1);
             }
+            return new Tuple<double, double>(1, 1); ;
         }
+    }
+
+    public static string RetrieveFormatedAddress(string lat, string lng)
+    {
+        string requestUri = Format(baseUri, lat, lng);
+
+        using (WebClient wc = new WebClient())
+        {
+            string result = wc.DownloadString(requestUri);
+            var xmlElm = XElement.Parse(result);
+            var status = (from elm in xmlElm.Descendants()
+                            where
+                            elm.Name == "status"
+                            select elm).FirstOrDefault();
+            if (status.Value.ToLower() == "ok")
+            {
+                var res = (from elm in xmlElm.Descendants()
+                            where
+                            elm.Name == "formatted_address"
+                            select elm).FirstOrDefault();
+                requestUri = res.Value;
+                return requestUri;
+            }
+            return "";
+        }
+    }
     }
 }

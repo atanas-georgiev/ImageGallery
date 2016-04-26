@@ -11,6 +11,7 @@ namespace ImageGallery.Web.Areas.Admin.Models.Image
         public int Id { get; set; }
 
         [MaxLength(200)]
+        [UIHint("LocationEditor")]
         public string LocationName { get; set; }
 
         public double? Latitude { get; set; }

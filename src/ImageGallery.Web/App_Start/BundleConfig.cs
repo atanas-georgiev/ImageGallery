@@ -52,6 +52,8 @@
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include("~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/geocomplete").Include("~/Scripts/Geocomplete/*.js"));
+
             bundles.Add(
                 new ScriptBundle(
                     "~/bundles/toastr", 
