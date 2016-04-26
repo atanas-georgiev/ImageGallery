@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using ImageGallery.Web.Areas.Admin.Models.Image;
 
 namespace ImageGallery.Web.Areas.Admin.Controllers
@@ -38,6 +39,37 @@ namespace ImageGallery.Web.Areas.Admin.Controllers
             var id = int.Parse(this.Session["AlbumId"].ToString());
             var result = this.imageService.GetAll().Where(x => x.AlbumId == id).To<ImageDetailsViewModel>(); 
             return Json(result.ToDataSourceResult(request));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult ImagesGrid_Update([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<ImageDetailsViewModel> images)
+        {
+            if (images != null && ModelState.IsValid)
+            {
+                foreach (var image in images)
+                {
+                    var itemToUpdate = this.imageService.GetById(image.Id);
+                    itemToUpdate.Title = image.Title;
+                    itemToUpdate.Description = image.Description;
+                    this.imageService.Update(itemToUpdate);
+                }
+            }
+
+            return Json(images.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult ImagesGrid_Destroy([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<ImageDetailsViewModel> images)
+        {
+            if (images.Any())
+            {
+                foreach (var image in images)
+                {
+                    this.imageService.Remove(image.Id);
+                }
+            }
+
+            return Json(images.ToDataSourceResult(request, ModelState));
         }
     }
 }

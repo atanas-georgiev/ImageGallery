@@ -12,5 +12,9 @@
         IQueryable<Image> GetAll();
 
         Image GetById(int id);
+
+        void Update(Image image);
+
+        void Remove(int id);
     }
 }

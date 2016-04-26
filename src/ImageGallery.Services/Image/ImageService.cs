@@ -88,7 +88,7 @@ namespace ImageGallery.Services.Image
             image.MidHeight = this.midheight;
             image.MidWidth = this.midwidth;
            
-            this.images.Add(image);
+            this.images.Add(image);            
         }
 
         private Data.Models.Image ExtractExifData(Stream inputStream)
@@ -221,6 +221,16 @@ namespace ImageGallery.Services.Image
         public Image GetById(int id)
         {
             return this.GetAll().FirstOrDefault(x => x.Id == id);
+        }
+
+        public void Update(Image image)
+        {
+            this.images.Update(image);
+        }
+
+        public void Remove(int id)
+        {
+            this.images.Delete(id);
         }
     }
 }
