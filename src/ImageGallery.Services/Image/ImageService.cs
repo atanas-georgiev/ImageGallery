@@ -30,10 +30,7 @@ namespace ImageGallery.Services.Image
         private IRepository<Album, int> albums;
 
         private IRepository<Image, int> images;
-
-        private int width;
-        private int height;
-
+        
         private int midwidth;
         private int midheight;
 
@@ -99,6 +96,7 @@ namespace ImageGallery.Services.Image
             {
                 var imageFactoryStream = ImageMetadataReader.ReadMetadata(inputStream);
                 var subIfdDirectory = imageFactoryStream.OfType<ExifSubIfdDirectory>().FirstOrDefault();
+                var subIfdDirectory2 = imageFactoryStream.OfType<ExifIfd0Directory>().FirstOrDefault();
 
                 try
                 {
@@ -155,7 +153,7 @@ namespace ImageGallery.Services.Image
 
                 try
                 {
-                    newImage.CameraMaker = subIfdDirectory?.GetDescription(ExifDirectoryBase.TagMakernote);
+                    newImage.CameraMaker = subIfdDirectory2?.GetString(ExifDirectoryBase.TagMake);
                 }
                 catch
                 {
@@ -163,7 +161,7 @@ namespace ImageGallery.Services.Image
 
                 try
                 {
-                    newImage.CameraModel = subIfdDirectory?.GetDescription(ExifDirectoryBase.TagModel);
+                    newImage.CameraModel = subIfdDirectory2?.GetString(ExifDirectoryBase.TagModel);
                 }
                 catch
                 {
@@ -179,7 +177,7 @@ namespace ImageGallery.Services.Image
 
                 try
                 {
-                    newImage.Width = subIfdDirectory.GetInt32(ExifDirectoryBase.TagImageWidth);
+                    newImage.Width = subIfdDirectory.GetInt32(ExifDirectoryBase.TagExifImageWidth);
                 }
                 catch
                 {
@@ -187,7 +185,7 @@ namespace ImageGallery.Services.Image
 
                 try
                 {
-                    newImage.Height = subIfdDirectory.GetInt32(ExifDirectoryBase.TagImageHeight);
+                    newImage.Height = subIfdDirectory.GetInt32(ExifDirectoryBase.TagExifImageHeight);
                 }
                 catch
                 {
