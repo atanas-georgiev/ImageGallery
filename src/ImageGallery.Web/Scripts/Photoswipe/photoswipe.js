@@ -196,7 +196,9 @@ var framework = {
 				}
 				features.androidVersion = androidversion; // for touchend bug
 			}	
-			features.isMobileOpera = /opera mini|opera mobi/i.test(ua);
+			features.is
+
+			Opera = /opera mini|opera mobi/i.test(ua);
 
 			// p.s. yes, yes, UA sniffing is bad, propose your solution for above bugs.
 		}

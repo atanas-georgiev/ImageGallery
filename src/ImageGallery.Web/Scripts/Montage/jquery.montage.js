@@ -122,9 +122,9 @@
 	$.Montage.defaults 			= {
 		liquid					: true, // if you use percentages (or no width at all) for the container's width, then set this to true
 										// this will set the body's overflow-y to scroll ( fix for the scrollbar's width problem ) 
-		margin					: 1,	// space between images.
-		minw					: 70,	// the minimum width that a picture should have.
-		minh					: 20,	// the minimum height that a picture should have.
+		margin					: 2,	// space between images.
+		minw					: 100,	// the minimum width that a picture should have.
+		minh					: 100,	// the minimum height that a picture should have.
 		maxh					: 250,	// the maximum height that a picture should have.
 		alternateHeight			: false,// alternate the height value for every row. If true this has priority over defaults.fixedHeight.
 		alternateHeightRange	: {		// the height will be a random value between min and max.
