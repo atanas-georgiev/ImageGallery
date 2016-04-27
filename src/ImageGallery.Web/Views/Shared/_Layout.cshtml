@@ -11,17 +11,7 @@
     @Styles.Render("~/Content/kendo")
     @Styles.Render("~/Content/kendo/kendo.bootstrap.min.css")
     @Styles.Render("~/Content/photoswipe")
-    @Styles.Render("~/Content/custom")
-
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/kendo")
-    @Scripts.Render("~/bundles/photoswipe")
-
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWEcd3sbqVjJdzORc9GaXQPbj9_yBZbOE&libraries=places">
-    </script>
-
-    @Scripts.Render("~/bundles/geocomplete")
+    @Styles.Render("~/Content/custom")    
     
 </head>
 <body>
@@ -67,13 +57,16 @@
         <!-- /#page-content-wrapper -->
 
     </div>
-@*<div class="container body-content">*@
-@*    *@
-@*    <hr/>*@
-@*    <footer>*@
-@*        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
-@*    </footer>*@
-@*</div>*@
+
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/kendo")
+@Scripts.Render("~/bundles/photoswipe")
+
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWEcd3sbqVjJdzORc9GaXQPbj9_yBZbOE&libraries=places">
+</script>
+
+@Scripts.Render("~/bundles/geocomplete")
 
 <script>
     $(document).ready(function () {

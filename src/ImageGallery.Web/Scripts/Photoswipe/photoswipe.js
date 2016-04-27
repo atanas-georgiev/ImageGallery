@@ -198,7 +198,7 @@ var framework = {
 			}	
 			features.is
 
-			Opera = /opera mini|opera mobi/i.test(ua);
+			//Opera = /opera mini|opera mobi/i.test(ua);
 
 			// p.s. yes, yes, UA sniffing is bad, propose your solution for above bugs.
 		}
