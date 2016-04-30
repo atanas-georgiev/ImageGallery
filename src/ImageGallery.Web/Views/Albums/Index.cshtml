@@ -4,5 +4,9 @@
 
 @foreach (var album in Model)
 {
-    <a href="/Albums/Details/@album.Id">@album.Title</a>
+    <hr/>
+    <a href="/Albums/Details/@album.Id"><h3>@album.Title</h3></a>
+    <br/>
+    <p>@album.StartDate - @album.EndDate</p>
+    <p>@album.ItemsCount images</p>
 }
