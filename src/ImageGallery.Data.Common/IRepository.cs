@@ -1,5 +1,7 @@
 ﻿namespace ImageGallery.Data.Common
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
     using ImageGallery.Data.Common.Models;
@@ -37,6 +39,8 @@
 
     public interface IHavePrimaryKey<TKey>
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         TKey Id { get; set; }
     }
 }

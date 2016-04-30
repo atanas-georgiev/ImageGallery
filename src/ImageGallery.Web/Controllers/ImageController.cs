@@ -22,10 +22,11 @@ namespace ImageGallery.Web.Controllers
         public ActionResult Index()
         {
             var images = this.imageService.GetAll().To<ImageViewModel>().ToList();
-//            foreach (var image in images)
-//            {
-//                image.src = VirtualPathUtility.ToAbsolute(image.src);
-//            }
+
+            foreach (var image in images)
+            {
+                image.src = VirtualPathUtility.ToAbsolute(image.src);
+            }
             return View(images);
         }
     }

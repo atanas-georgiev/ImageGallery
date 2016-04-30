@@ -21,15 +21,13 @@ namespace ImageGallery.Services.Image
     using ImageGallery.Data.Common;
     using ImageGallery.Data.Models;
 
-    using System.Drawing.Imaging;
-
     using Image = ImageGallery.Data.Models.Image;
 
     public class ImageService : IImageService
     {
-        private IRepository<Album, int> albums;
+        private IRepository<Album, Guid> albums;
 
-        private IRepository<Image, int> images;
+        private IRepository<Image, Guid> images;
         
         private int midwidth;
         private int midheight;
@@ -39,13 +37,13 @@ namespace ImageGallery.Services.Image
 
         private DateTime dateTaken;
 
-        public ImageService(IRepository<Image, int> images, IRepository<Album, int> albums)
+        public ImageService(IRepository<Image, Guid> images, IRepository<Album, Guid> albums)
         {
             this.images = images;
             this.albums = albums;
         }
 
-        public void Add(int albumId, HttpPostedFileBase file, HttpServerUtility server)
+        public void Add(Guid albumId, HttpPostedFileBase file, HttpServerUtility server)
         {
             if (file == null)
             {
@@ -190,12 +188,20 @@ namespace ImageGallery.Services.Image
                 catch
                 {
                 }
+
+                try
+                {
+                    newImage.Lenses = subIfdDirectory.GetString(ExifDirectoryBase.TagLensModel);
+                }
+                catch
+                {
+                }
             }
 
             return newImage;
         }
 
-        private void Resize(Stream inputStream, ImageType type, int albumId, string originalFilename, HttpServerUtility server)
+        private void Resize(Stream inputStream, ImageType type, Guid albumId, string originalFilename, HttpServerUtility server)
         {
             inputStream.Seek(0, SeekOrigin.Begin);
 
@@ -232,7 +238,7 @@ namespace ImageGallery.Services.Image
             return this.images.All();
         }
 
-        public Image GetById(int id)
+        public Image GetById(Guid id)
         {
             return this.GetAll().FirstOrDefault(x => x.Id == id);
         }
@@ -242,7 +248,7 @@ namespace ImageGallery.Services.Image
             this.images.Update(image);
         }
 
-        public void Remove(int id)
+        public void Remove(Guid id)
         {
             this.images.Delete(id);
         }

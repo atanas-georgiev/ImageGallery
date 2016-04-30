@@ -20,7 +20,7 @@
 
         [Key]
         [HiddenInput(DisplayValue = false)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [MinLength(3)]

@@ -1,5 +1,6 @@
 ﻿namespace ImageGallery.Services.Album
 {
+    using System;
     using System.Linq;
 
     using ImageGallery.Data.Models;
@@ -10,6 +11,6 @@
 
         IQueryable<Album> GetAll();
 
-        Album GetById(int id);
+        Album GetById(Guid id);
     }
 }

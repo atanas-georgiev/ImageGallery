@@ -8,24 +8,17 @@
     using ImageGallery.Data.Models;
     using ImageGallery.Web.Infrastructure.Mappings;
 
-    public class AlbumListViewModel : IMapFrom<Album>, IHaveCustomMappings
+    public class AlbumListViewModel : IMapFrom<Album>
     {
-        [Required]
-        public DateTime Date { get; set; }
-
         [MaxLength(3000)]
         public string Description { get; set; }
 
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [MinLength(3)]
         [MaxLength(150)]
         public string Title { get; set; }
-
-        public void CreateMappings(IConfiguration configuration)
-        {
-        }
     }
 }

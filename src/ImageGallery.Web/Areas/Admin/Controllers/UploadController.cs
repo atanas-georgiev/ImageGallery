@@ -1,5 +1,6 @@
 ﻿namespace ImageGallery.Web.Areas.Admin.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Web;
@@ -47,7 +48,7 @@
 
         public ActionResult Save(IEnumerable<HttpPostedFileBase> files)
         {
-            var albumId = int.Parse(this.Session["AlbumId"].ToString());
+            var albumId = Guid.Parse(this.Session["AlbumId"].ToString());
 
             // The Name of the Upload component is "files"
             if (files != null)

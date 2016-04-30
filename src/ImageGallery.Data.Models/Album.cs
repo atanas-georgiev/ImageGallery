@@ -3,11 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     using ImageGallery.Data.Common;
     using ImageGallery.Data.Common.Models;
 
-    public class Album : BaseModel<int>, IHavePrimaryKey<int>
+    public class Album : BaseModel<Guid>, IHavePrimaryKey<Guid>
     {
         private ICollection<Image> images;
 
@@ -16,8 +17,9 @@
             this.images = new HashSet<Image>();
         }
 
-        [Required]
-        public DateTime Date { get; set; }
+        public AccessType Access { get; set; }
+
+        public Guid? CoverId { get; set; }
 
         [MaxLength(3000)]
         public string Description { get; set; }

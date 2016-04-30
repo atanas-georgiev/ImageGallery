@@ -1,5 +1,6 @@
 ﻿namespace ImageGallery.Services.Album
 {
+    using System;
     using System.Linq;
 
     using ImageGallery.Data.Common;
@@ -7,9 +8,9 @@
 
     public class AlbumService : IAlbumService
     {
-        private IRepository<Album, int> albums;
+        private IRepository<Album, Guid> albums;
 
-        public AlbumService(IRepository<Album, int> albums)
+        public AlbumService(IRepository<Album, Guid> albums)
         {
             this.albums = albums;
         }
@@ -24,7 +25,7 @@
             return this.albums.All();
         }
 
-        public Album GetById(int id)
+        public Album GetById(Guid id)
         {
             return this.GetAll().FirstOrDefault(x => x.Id == id);
         }

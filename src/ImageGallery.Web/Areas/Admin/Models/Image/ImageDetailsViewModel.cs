@@ -8,7 +8,7 @@ namespace ImageGallery.Web.Areas.Admin.Models.Image
 {
     public class ImageDetailsViewModel : IMapFrom<Data.Models.Image>, IHaveCustomMappings
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [MaxLength(200)]
         [UIHint("LocationEditor")]

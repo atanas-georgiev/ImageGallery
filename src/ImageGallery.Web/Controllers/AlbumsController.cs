@@ -25,16 +25,17 @@ namespace ImageGallery.Web.Controllers
             return View(albums);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            var images = this.albumService.GetById(id).Images.AsQueryable().To<ImageViewModel>().ToList();
-            foreach (var image in images)
+            var images = this.albumService.GetById(Guid.Parse(id));
+            var images2 = images.Images.AsQueryable().To<ImageViewModel>().ToList();
+            foreach (var image in images2)
             {
                 image.src = VirtualPathUtility.ToAbsolute(image.src);
                 image.tumbsrc = VirtualPathUtility.ToAbsolute(image.tumbsrc);
                // image.msrc = VirtualPathUtility.ToAbsolute(image.msrc);
             }
-            return View(images);
+            return View(images2);
         }
     }
 }

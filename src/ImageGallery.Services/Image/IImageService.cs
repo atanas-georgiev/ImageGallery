@@ -1,5 +1,6 @@
 ﻿namespace ImageGallery.Services.Image
 {
+    using System;
     using System.Linq;
     using System.Web;
 
@@ -7,14 +8,14 @@
 
     public interface IImageService
     {
-        void Add(int albumId, HttpPostedFileBase file, HttpServerUtility server);
+        void Add(Guid albumId, HttpPostedFileBase file, HttpServerUtility server);
 
         IQueryable<Image> GetAll();
 
-        Image GetById(int id);
+        Image GetById(Guid id);
 
         void Update(Image image);
 
-        void Remove(int id);
+        void Remove(Guid id);
     }
 }

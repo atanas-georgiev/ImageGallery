@@ -4,6 +4,7 @@ using ImageGallery.Web.Areas.Admin.Models.Image;
 
 namespace ImageGallery.Web.Areas.Admin.Controllers
 {
+    using System;
     using System.Web.Mvc;
 
     using ImageGallery.Services.Album;
@@ -36,8 +37,8 @@ namespace ImageGallery.Web.Areas.Admin.Controllers
 
         public ActionResult ImagesGrid_Read([DataSourceRequest] DataSourceRequest request)
         {
-            var id = int.Parse(this.Session["AlbumId"].ToString());
-            var result = this.imageService.GetAll().Where(x => x.AlbumId == id).To<ImageDetailsViewModel>(); 
+            var id = Guid.Parse(this.Session["AlbumId"].ToString());
+            var result = this.imageService.GetAll().Where(x => x.Album.Id == id).To<ImageDetailsViewModel>(); 
             return Json(result.ToDataSourceResult(request));
         }
 

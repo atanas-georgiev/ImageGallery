@@ -21,7 +21,7 @@ namespace ImageGallery.Web.Areas.Admin.Models.Album
         public string Description { get; set; }
 
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [MinLength(3)]

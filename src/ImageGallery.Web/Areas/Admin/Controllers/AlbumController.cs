@@ -34,8 +34,7 @@
                 var album = new Album()
                                 {
                                     Title = model.Title, 
-                                    Description = model.Description, 
-                                    Date = model.Date, 
+                                    Description = model.Description,
                                     CreatedOn = DateTime.UtcNow
                                 };
 
@@ -49,7 +48,7 @@
         public ActionResult Details(string id)
         {
             this.Session["AlbumId"] = id;
-            var intId = int.Parse(id);
+            var intId = Guid.Parse(id);
             var result = this.albumService.GetAll().Where(x => x.Id == intId).To<AlbumDetailsViewModel>().FirstOrDefault();
             return this.View(result);
         }

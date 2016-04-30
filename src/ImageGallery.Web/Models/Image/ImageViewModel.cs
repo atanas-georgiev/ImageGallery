@@ -26,7 +26,7 @@
                     opt =>
                         opt.MapFrom(
                             c =>
-                                Common.Constants.MainContentFolder + "\\" + c.AlbumId + "\\" +
+                                Common.Constants.MainContentFolder + "\\" + c.Album.Id + "\\" +
                                 Common.Constants.ImageFolderMiddle + "\\" + c.FileName))
 //                .ForMember(m => m.msrc,
 //                    opt =>
@@ -38,7 +38,7 @@
                     opt =>
                         opt.MapFrom(
                             c =>
-                                Common.Constants.MainContentFolder + "\\" + c.AlbumId + "\\" +
+                                Common.Constants.MainContentFolder + "\\" + c.Album.Id + "\\" +
                                 Common.Constants.ImageFolderLow + "\\" + c.FileName))
                 .ForMember(m => m.title, opt => opt.MapFrom(c => c.Title))
                 .ForMember(m => m.desc, opt => opt.MapFrom(c => c.Description))

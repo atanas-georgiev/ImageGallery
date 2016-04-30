@@ -7,7 +7,7 @@ namespace ImageGallery.Services.File
 {
     static class FileService
     {
-        static string GetImageFolder(int albumId, ImageType type, HttpServerUtility server)
+        static string GetImageFolder(Guid albumId, ImageType type, HttpServerUtility server)
         {
             switch (type)
             {
@@ -21,7 +21,7 @@ namespace ImageGallery.Services.File
             return string.Empty;
         }
 
-        internal static void CreateInitialFolders(int albumId, HttpServerUtility server)
+        internal static void CreateInitialFolders(Guid albumId, HttpServerUtility server)
         {
             if (!Directory.Exists(server.MapPath(Common.Constants.MainContentFolder)))
             {
@@ -66,7 +66,7 @@ namespace ImageGallery.Services.File
             }
         }
 
-        internal static void Save(Stream inputStream, ImageType type, string originalFilename, int albumId, HttpServerUtility server)
+        internal static void Save(Stream inputStream, ImageType type, string originalFilename, Guid albumId, HttpServerUtility server)
         {
             using (var fileStream = System.IO.File.Create(FileService.GetImageFolder(albumId, type, server) + originalFilename))
             {

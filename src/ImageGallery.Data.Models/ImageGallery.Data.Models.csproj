@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessType.cs" />
     <Compile Include="Album.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="ImageGpsData.cs" />

@@ -7,7 +7,7 @@ namespace ImageGallery.Web.Models.Album
 {
     public class AlbumViewModel : IMapFrom<Data.Models.Album>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public DateTime Date { get; set; }        
 
